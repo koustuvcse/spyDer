@@ -11,7 +11,7 @@ def insertion(record, self=None):
     cur =myconn.cursor()
     print("To Be Inserted")
     print(record)
-    oppop = record.pop('operation')
+    record.pop('operation')
     columns = ', '.join(record.keys())
     placeholders = ', '.join(['%s' for _ in range(len(record))])
     insert_query = f"INSERT INTO visitors ({columns}) VALUES ({placeholders})"
@@ -26,7 +26,7 @@ def updation(record):
     cur = myconn.cursor()
     print("To Be Updated")
     print(record)
-    oppop = record.pop('operation')
+    record.pop('operation')
     vis_id = record.get('visitor_id')
 
 

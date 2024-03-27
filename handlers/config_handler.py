@@ -7,16 +7,14 @@ db_name = 'visitors'
 db_user = 'postgres'
 db_password = 'admin'
 
-def read_visitors():
+
+def read_visitors(tablename):
     myconn = db_conn.open_conn(db_host, db_name, db_user, db_password)
     if myconn is not None:
-        rows = db_read.read_table_data(myconn, 'visitors')
+        rows = db_read.read_table_data(myconn, tablename)
         db_read.print_table_data(rows)
         myconn.close()
         print("PostgreSQL connection is closed.")
 
-def main():
-    read_visitors()
 
-if __name__ == "__main__":
-    main()
+read_visitors("visitors")
