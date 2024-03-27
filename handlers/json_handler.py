@@ -3,7 +3,7 @@ from services import db_conn
 from services import db_crud
 
 
-filepath = 'G://codebase/spyDer/data/file.json'
+filepath = '../data/file.json'
 
 
 def json_handler(path):
