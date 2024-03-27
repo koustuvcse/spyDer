@@ -1,5 +1,3 @@
-import psycopg2
-from psycopg2 import Error
 from services import db_conn
 
 # PostgreSQL connection parameters
@@ -45,7 +43,7 @@ def deletion(record):
     cur = myconn.cursor()
     print("To Be Deleted")
     print(record)
-    oppop = record.pop('operation')
+    record.pop('operation')
     vis_id = record.get('visitor_id')
     delete_query = f"DELETE FROM visitors WHERE visitor_id = {vis_id}"
     cur.execute(delete_query)
