@@ -30,10 +30,12 @@ def updation(record):
     print(record)
     oppop = record.pop('operation')
     vis_id = record.get('visitor_id')
-    columns = ', '.join(record.keys())
-    placeholders = ', '.join(['%s' for _ in range(len(record))])
-    delete_query = f"UPDATE visitors {params} WHERE visitor_id = {vis_id}"
-    cur.execute(delete_query)
+
+
+    #### Insert logic here
+
+    update_query = f"UPDATE visitors {params} WHERE visitor_id = {vis_id}"
+    cur.execute(update_query)
     myconn.commit()
     cur.close()
     myconn.close()
