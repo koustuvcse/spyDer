@@ -6,9 +6,10 @@ db_name = 'visitors'
 db_user = 'postgres'
 db_password = 'admin'
 
+
 def insertion(record, self=None):
     myconn = db_conn.open_conn(db_host, db_name, db_user, db_password)
-    cur =myconn.cursor()
+    cur = myconn.cursor()
     print("To Be Inserted")
     print(record)
     record.pop('operation')
@@ -21,6 +22,7 @@ def insertion(record, self=None):
     cur.close()
     myconn.close()
 
+
 def updation(record):
     myconn = db_conn.open_conn(db_host, db_name, db_user, db_password)
     cur = myconn.cursor()
@@ -28,15 +30,17 @@ def updation(record):
     print(record)
     record.pop('operation')
     vis_id = record.get('visitor_id')
-
-
-    #### Insert logic here
-
-    update_query = f"UPDATE visitors {params} WHERE visitor_id = {vis_id}"
-    cur.execute(update_query)
+    record.pop('visitor_id')
+    record.pop('modified_by', 'No Key found')
+    record.pop('modified_on', 'No Key found')
+    set_clause = ', '.join(f"{col} = %s" for col in record)
+    datavalues = tuple(record.values())
+    update_query = f"UPDATE visitors SET {set_clause} , modified_by = 'pyeng', modified_on = CURRENT_TIMESTAMP WHERE visitor_id = {vis_id}"
+    cur.execute(update_query, datavalues)
     myconn.commit()
     cur.close()
     myconn.close()
+
 
 def deletion(record):
     myconn = db_conn.open_conn(db_host, db_name, db_user, db_password)
